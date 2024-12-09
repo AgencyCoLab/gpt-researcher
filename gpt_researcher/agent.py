@@ -107,11 +107,11 @@ class GPTResearcher:
             ext_context or self.context
         )
 
-    async def write_report_conclusion(self, report_body: str) -> str:
-        return await self.report_generator.write_report_conclusion(report_body)
+    # async def write_report_conclusion(self, report_body: str) -> str:
+    #     return await self.report_generator.write_report_conclusion(report_body)
 
-    async def write_introduction(self):
-        return await self.report_generator.write_introduction()
+    # async def write_introduction(self):
+    #     return await self.report_generator.write_introduction()
 
     async def get_subtopics(self):
         return await self.report_generator.get_subtopics()

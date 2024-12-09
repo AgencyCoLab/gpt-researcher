@@ -6,8 +6,8 @@ from ..actions import (
     stream_output,
     generate_report,
     generate_draft_section_titles,
-    write_report_introduction,
-    write_conclusion
+    # write_report_introduction,
+    # write_conclusion
 )
 
 
@@ -85,71 +85,71 @@ class ReportGenerator:
 
         return report
 
-    async def write_report_conclusion(self, report_content: str) -> str:
-        """
-        Write the conclusion for the report.
+    # async def write_report_conclusion(self, report_content: str) -> str:
+    #     """
+    #     Write the conclusion for the report.
 
-        Args:
-            report_content (str): The content of the report.
+    #     Args:
+    #         report_content (str): The content of the report.
 
-        Returns:
-            str: The generated conclusion.
-        """
-        if self.researcher.verbose:
-            await stream_output(
-                "logs",
-                "writing_conclusion",
-                f"✍️ Writing conclusion for '{self.researcher.query}'...",
-                self.researcher.websocket,
-            )
+    #     Returns:
+    #         str: The generated conclusion.
+    #     """
+    #     if self.researcher.verbose:
+    #         await stream_output(
+    #             "logs",
+    #             "writing_conclusion",
+    #             f"✍️ Writing conclusion for '{self.researcher.query}'...",
+    #             self.researcher.websocket,
+    #         )
 
-        conclusion = await write_conclusion(
-            query=self.researcher.query,
-            context=report_content,
-            config=self.researcher.cfg,
-            agent_role_prompt=self.researcher.cfg.agent_role or self.researcher.role,
-            cost_callback=self.researcher.add_costs,
-            websocket=self.researcher.websocket,
-        )
+    #     conclusion = await write_conclusion(
+    #         query=self.researcher.query,
+    #         context=report_content,
+    #         config=self.researcher.cfg,
+    #         agent_role_prompt=self.researcher.cfg.agent_role or self.researcher.role,
+    #         cost_callback=self.researcher.add_costs,
+    #         websocket=self.researcher.websocket,
+    #     )
 
-        if self.researcher.verbose:
-            await stream_output(
-                "logs",
-                "conclusion_written",
-                f"📝 Conclusion written for '{self.researcher.query}'",
-                self.researcher.websocket,
-            )
+    #     if self.researcher.verbose:
+    #         await stream_output(
+    #             "logs",
+    #             "conclusion_written",
+    #             f"📝 Conclusion written for '{self.researcher.query}'",
+    #             self.researcher.websocket,
+    #         )
 
-        return conclusion
+    #     return conclusion
 
-    async def write_introduction(self):
-        """Write the introduction section of the report."""
-        if self.researcher.verbose:
-            await stream_output(
-                "logs",
-                "writing_introduction",
-                f"✍️ Writing introduction for '{self.researcher.query}'...",
-                self.researcher.websocket,
-            )
+    # async def write_introduction(self):
+    #     """Write the introduction section of the report."""
+    #     if self.researcher.verbose:
+    #         await stream_output(
+    #             "logs",
+    #             "writing_introduction",
+    #             f"✍️ Writing introduction for '{self.researcher.query}'...",
+    #             self.researcher.websocket,
+    #         )
 
-        introduction = await write_report_introduction(
-            query=self.researcher.query,
-            context=self.researcher.context,
-            agent_role_prompt=self.researcher.cfg.agent_role or self.researcher.role,
-            config=self.researcher.cfg,
-            websocket=self.researcher.websocket,
-            cost_callback=self.researcher.add_costs,
-        )
+    #     introduction = await write_report_introduction(
+    #         query=self.researcher.query,
+    #         context=self.researcher.context,
+    #         agent_role_prompt=self.researcher.cfg.agent_role or self.researcher.role,
+    #         config=self.researcher.cfg,
+    #         websocket=self.researcher.websocket,
+    #         cost_callback=self.researcher.add_costs,
+    #     )
 
-        if self.researcher.verbose:
-            await stream_output(
-                "logs",
-                "introduction_written",
-                f"📝 Introduction written for '{self.researcher.query}'",
-                self.researcher.websocket,
-            )
+    #     if self.researcher.verbose:
+    #         await stream_output(
+    #             "logs",
+    #             "introduction_written",
+    #             f"📝 Introduction written for '{self.researcher.query}'",
+    #             self.researcher.websocket,
+    #         )
 
-        return introduction
+    #     return introduction
 
     async def get_subtopics(self):
         """Retrieve subtopics for the research."""

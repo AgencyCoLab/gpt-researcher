@@ -8,6 +8,10 @@ class ReportType(Enum):
     CustomReport = "custom_report"
     DetailedReport = "detailed_report"
     SubtopicReport = "subtopic_report"
+    # new added type
+    BrandReport = "brand_report"
+    AudienceReport = "audience_report"
+    MarketReport = "market_report"
 
 
 class ReportSource(Enum):
@@ -47,3 +51,7 @@ class Tone(Enum):
     Pessimistic = (
         "Pessimistic (focusing on limitations, challenges, or negative outcomes)"
     )
+    Strategic = (
+        "Strategic (a professional and focused tone emphasizing clarity, actionable insights, and strategic thinking.)"
+    )
+

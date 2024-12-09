@@ -433,6 +433,172 @@ def generate_report_conclusion(query: str, report_content: str) -> str:
 
     return prompt
 
+################################################################################################
+# New added report prompt
+
+
+def generate_brand_report_prompt(
+    question: str,
+    context,
+    report_source: str,
+    report_format="apa",
+    total_words=200,
+    tone=None,
+):
+    """Generates the brand report prompt for the given question and research summary.
+    Args: question (str): The question to generate the report prompt for
+            research_summary (str): The research summary to generate the report prompt for
+    Returns: str: The report prompt for the given question and research summary
+    """
+
+    reference_prompt = ""
+    if report_source == ReportSource.Web.value:
+        reference_prompt = f"""
+You MUST write all used source urls at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each.
+Every url should be hyperlinked: [url website](url)
+Additionally, you MUST include hyperlinks to the relevant URLs wherever they are referenced in the report: 
+
+eg: Author, A. A. (Year, Month Date). Title of web page. Website Name. [url website](url)
+"""
+    else:
+        reference_prompt = f"""
+You MUST write all used source document names at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each."
+"""
+
+    tone_prompt = f"Write the report in a {tone.value} tone." if tone else ""
+
+    return f"""
+Information: "{context}"
+---
+Using the above information, answer the following query or task: "{question}" in a detailed brand-focused report --
+The report should focus on the answer to the query, should be well structured, informative, 
+in-depth, and comprehensive, with facts and numbers if available.
+You should strive to write the report as long as you can using all relevant and necessary information provided.
+
+Please follow all of the following guidelines in your report:
+- You MUST determine your own concrete and valid opinion based on the given information. Do NOT defer to general and meaningless conclusions.
+- You MUST write the report with markdown syntax.
+- You MUST follow the specified structure in the {question}, excluding the conclusion section and any unrequested sections or items.
+- You MUST prioritize the relevance, reliability, and significance of the sources you use. Choose trusted sources over less reliable ones.
+- You must also prioritize new articles over older articles if the source can be trusted.
+- Use in-text citation references in {report_format} format and make it with markdown hyperlink placed at the end of the sentence or paragraph that references them like this: ([in-text citation](url)).
+- Don't forget to add a reference list at the end of the report in {report_format} format and full url links without hyperlinks.
+- {reference_prompt}
+- {tone_prompt}
+
+This task is critical for strategic brand analysis. Please deliver your best effort.
+Assume that the current date is {date.today()}.
+"""
+
+
+def generate_audience_report_prompt(
+    question: str,
+    context,
+    report_source: str,
+    report_format="apa",
+    total_words=1000,
+    tone=None,
+):
+    """Generates the audience report prompt for the given question and research summary.
+    Args: question (str): The question to generate the report prompt for
+            research_summary (str): The research summary to generate the report prompt for
+    Returns: str: The report prompt for the given question and research summary
+    """
+
+    reference_prompt = ""
+    if report_source == ReportSource.Web.value:
+        reference_prompt = f"""
+You MUST write all used source urls at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each.
+Every url should be hyperlinked: [url website](url)
+Additionally, you MUST include hyperlinks to the relevant URLs wherever they are referenced in the report: 
+
+eg: Author, A. A. (Year, Month Date). Title of web page. Website Name. [url website](url)
+"""
+    else:
+        reference_prompt = f"""
+You MUST write all used source document names at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each."
+"""
+
+    tone_prompt = f"Write the report in a {tone.value} tone." if tone else ""
+
+    return f"""
+Information: "{context}"
+---
+Using the above information, answer the following query or task: "{question}" in a detailed audience-focused report --
+The report should focus on the answer to the query, should be well structured, informative, 
+in-depth, and comprehensive, with facts and numbers if available.
+You should strive to write the report as long as you can using all relevant and necessary information provided.
+
+Please follow all of the following guidelines in your report:
+- You MUST determine your own concrete and valid opinion based on the given information. Do NOT defer to general and meaningless conclusions.
+- You MUST write the report with markdown syntax.
+- You MUST follow the specified structure in the {question}, excluding the conclusion section and any unrequested sections or items.
+- You MUST prioritize the relevance, reliability, and significance of the sources you use. Choose trusted sources over less reliable ones.
+- You must also prioritize new articles over older articles if the source can be trusted.
+- Use in-text citation references in {report_format} format and make it with markdown hyperlink placed at the end of the sentence or paragraph that references them like this: ([in-text citation](url)).
+- Don't forget to add a reference list at the end of the report in {report_format} format and full url links without hyperlinks.
+- {reference_prompt}
+- {tone_prompt}
+
+Please do your best, this is very important to my career.
+Assume that the current date is {date.today()}.
+"""
+
+
+def generate_market_report_prompt(
+    question: str,
+    context,
+    report_source: str,
+    report_format="apa",
+    total_words=300,
+    tone=None,
+):
+    """Generates the market report prompt for the given question and research summary.
+    Args: question (str): The question to generate the report prompt for
+            research_summary (str): The research summary to generate the report prompt for
+    Returns: str: The report prompt for the given question and research summary
+    """
+
+    reference_prompt = ""
+    if report_source == ReportSource.Web.value:
+        reference_prompt = f"""
+You MUST write all used source urls at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each.
+Every url should be hyperlinked: [url website](url)
+Additionally, you MUST include hyperlinks to the relevant URLs wherever they are referenced in the report: 
+
+eg: Author, A. A. (Year, Month Date). Title of web page. Website Name. [url website](url)
+"""
+    else:
+        reference_prompt = f"""
+You MUST write all used source document names at the end of the report as references, and make sure to not add duplicated sources, but only one reference for each."
+"""
+
+    tone_prompt = f"Write the report in a {tone.value} tone." if tone else ""
+
+    return f"""
+Information: "{context}"
+---
+Using the above information, answer the following query or task: "{question}" in a detailed market-focused report --
+The report should focus on the answer to the query, should be well structured, informative, 
+in-depth, and comprehensive, with facts and numbers if available.
+You should strive to write the report as long as you can using all relevant and necessary information provided.
+Ensure the report explores the market from multiple angles and provides a thorough understanding of the landscape.
+
+Please follow all of the following guidelines in your report:
+- You MUST determine your own concrete and valid opinion based on the given information. Do NOT defer to general and meaningless conclusions.
+- You MUST write the report with markdown syntax.
+- You MUST follow the specified structure in the {question}, excluding the conclusion section and any unrequested sections or items.
+- You MUST prioritize the relevance, reliability, and significance of the sources you use. Choose trusted sources over less reliable ones.
+- You must also prioritize new articles over older articles if the source can be trusted.
+- Use in-text citation references in {report_format} format and make it with markdown hyperlink placed at the end of the sentence or paragraph that references them like this: ([in-text citation](url)).
+- Don't forget to add a reference list at the end of the report in {report_format} format and full url links without hyperlinks.
+- {reference_prompt}
+- {tone_prompt}
+
+This task is critical for strategic planning. Please deliver your best effort.
+Assume that the current date is {date.today()}.
+"""
+
 
 report_type_mapping = {
     ReportType.ResearchReport.value: generate_report_prompt,
@@ -440,6 +606,10 @@ report_type_mapping = {
     ReportType.OutlineReport.value: generate_outline_report_prompt,
     ReportType.CustomReport.value: generate_custom_report_prompt,
     ReportType.SubtopicReport.value: generate_subtopic_report_prompt,
+    # new added type
+    ReportType.BrandReport.value: generate_brand_report_prompt,
+    ReportType.AudienceReport.value: generate_audience_report_prompt,
+    ReportType.MarketReport.value: generate_market_report_prompt,
 }
 
 
